@@ -1,0 +1,215 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🛍️</div>
+        <div>
+          <div class="logo-title">QuickMart</div>
+          <div class="logo-sub">Admin Console</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">Main Menu</div>
+    <ul class="menu-list">
+      <li>
+        <a
+          routerLink="/admin"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/add-product" routerLinkActive="active">
+          <span class="menu-icon">➕</span>
+          <span class="menu-text">Add Product</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/manage-products" routerLinkActive="active">
+          <span class="menu-icon">📦</span>
+          <span class="menu-text">Manage Products</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/sales" routerLinkActive="active">
+          <span class="menu-icon">🛒</span>
+          <span class="menu-text">Sale Records</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/announcement" routerLinkActive="active">
+          <span class="menu-icon">📢</span>
+          <span class="menu-text">Announcements</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/feedback" routerLinkActive="active">
+          <span class="menu-icon">💬</span>
+          <span class="menu-text">Feedback</span>
+          <span class="menu-badge">4</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="admin-profile">
+        <img
+          src="https://ui-avatars.com/api/?name=Admin&background=667eea&color=fff"
+          alt="admin"
+          class="admin-avatar"
+        />
+        <div class="admin-info">
+          <div class="admin-name">{{ adminName }}</div>
+          <div class="admin-role">Administrator</div>
+        </div>
+        <button (click)="logout()" class="logout-btn" title="Logout">⏻</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Welcome back, {{ adminName }}! 👋</h1>
+        <p>Here's what's happening in your store today.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date">{{ currentDate | date: "fullDate" }}</div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon products">📦</div>
+        <div class="stat-info">
+          <div class="stat-value">{{ stats.totalProducts | number }}</div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-change positive">↑ 12% from last month</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orders">🛒</div>
+        <div class="stat-info">
+          <div class="stat-value">{{ stats.totalOrders | number }}</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-change positive">↑ 8% from last month</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon revenue">💰</div>
+        <div class="stat-info">
+          <div class="stat-value">₹{{ stats.totalRevenue | number }}</div>
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-change positive">↑ 15% from last month</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon users">👥</div>
+        <div class="stat-info">
+          <div class="stat-value">{{ stats.totalUsers | number }}</div>
+          <div class="stat-label">Total Users</div>
+          <div class="stat-change positive">↑ 5% from last month</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="actions-grid">
+        <a routerLink="/admin/add-product" class="action-card">
+          <div class="action-icon">➕</div>
+          <span>Add Product</span>
+        </a>
+        <a routerLink="/admin/manage-products" class="action-card">
+          <div class="action-icon">✏️</div>
+          <span>Manage Products</span>
+        </a>
+        <a routerLink="/admin/sales" class="action-card">
+          <div class="action-icon">📦</div>
+          <span>View Orders</span>
+        </a>
+        <a routerLink="/admin/announcement" class="action-card">
+          <div class="action-icon">📢</div>
+          <span>Post Announcement</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Orders Table -->
+    <div class="recent-orders">
+      <div class="section-header">
+        <h3>Recent Orders</h3>
+        <a routerLink="/admin/sales" class="view-all">View All →</a>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Item</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders">
+              <td class="order-id">#{{ order.id }}</td>
+              <td class="customer-name">{{ order.customerName }}</td>
+              <td class="item-name">{{ order.itemName }}</td>
+              <td class="amount">₹{{ order.amount | number }}</td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class]="getStatusClass(order.status)"
+                >
+                  {{ order.status }}
+                </span>
+              </td>
+              <td class="date-cell">{{ order.date | date: "dd/MM/yyyy" }}</td>
+            </tr>
+            <tr *ngIf="recentOrders.length === 0">
+              <td colspan="6" class="no-data">No recent orders found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recent Feedbacks -->
+    <div class="recent-feedbacks">
+      <div class="section-header">
+        <h3>Recent Feedbacks</h3>
+        <a routerLink="/admin/feedback" class="view-all">View All →</a>
+      </div>
+      <div class="feedbacks-list">
+        <div class="feedback-card" *ngFor="let feedback of recentFeedbacks">
+          <div class="feedback-header">
+            <strong>{{ feedback.customerName }}</strong>
+            <span>{{ feedback.date | date: "dd/MM/yyyy" }}</span>
+          </div>
+          <p class="feedback-message">{{ feedback.message }}</p>
+          <div class="feedback-actions">
+            <button class="reply-btn">Reply</button>
+          </div>
+        </div>
+        <div *ngIf="recentFeedbacks.length === 0" class="no-data">
+          No recent feedback
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

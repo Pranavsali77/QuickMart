@@ -1,0 +1,217 @@
+<div class="contact-page">
+  <!-- Hero Section -->
+  <div class="hero-section" [@fadeInUp]>
+    <div class="hero-content">
+      <div class="hero-badge">📞 Get in Touch</div>
+      <h1 class="hero-title">Contact Us</h1>
+      <div class="hero-line"></div>
+      <p class="hero-subtitle">
+        We're here to help! Reach out with any questions, feedback, or
+        suggestions.
+      </p>
+    </div>
+  </div>
+
+  <div class="contact-container">
+    <div class="contact-wrapper" [@slideInUp]>
+      <!-- Contact Info Cards -->
+      <div class="contact-info-section">
+        <div
+          class="info-card"
+          *ngFor="let info of contactInfo; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          <div class="info-icon">{{ info.icon }}</div>
+          <div class="info-content">
+            <h3>{{ info.title }}</h3>
+            <p>{{ info.details }}</p>
+            <span class="info-sub" *ngIf="info.sub">{{ info.sub }}</span>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-section" [@fadeIn]>
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="#" class="social-link twitter">
+              <span>🐦</span> Twitter
+            </a>
+            <a href="#" class="social-link instagram">
+              <span>📷</span> Instagram
+            </a>
+            <a href="#" class="social-link linkedin">
+              <span>🔗</span> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section" [@fadeIn]>
+          <h3>📍 Our Location</h3>
+          <div class="map-placeholder">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.2613173278896!2d73.856742!3d18.52043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c06d5f2b6e6f%3A0x5b7b2e3a4c5d6e7f!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sin!4v1699999999999!5m2!1sen!2sin"
+              width="100%"
+              height="200"
+              style="border: 0; border-radius: 12px"
+              allowfullscreen=""
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="form-section" [@slideInRight]>
+        <div class="form-header">
+          <span class="form-icon">✉️</span>
+          <h2>Send us a Message</h2>
+          <p>We'll get back to you within 24 hours</p>
+        </div>
+
+        <form
+          (ngSubmit)="submitMessage()"
+          #contactForm="ngForm"
+          class="contact-form"
+        >
+          <div class="form-group" [@slideInLeft]>
+            <label for="name">
+              <span class="label-icon">👤</span>
+              Your Name
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                [(ngModel)]="contact.name"
+                #name="ngModel"
+                required
+                placeholder="Enter your full name"
+                class="form-input"
+              />
+              <div class="input-border"></div>
+            </div>
+            <div *ngIf="name.invalid && name.touched" class="error-message">
+              ⚠️ Name is required
+            </div>
+          </div>
+
+          <div class="form-group" [@slideInLeft]>
+            <label for="email">
+              <span class="label-icon">📧</span>
+              Email Address
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="contact.email"
+                #email="ngModel"
+                required
+                email
+                placeholder="your@email.com"
+                class="form-input"
+              />
+              <div class="input-border"></div>
+            </div>
+            <div *ngIf="email.invalid && email.touched" class="error-message">
+              <span *ngIf="email.errors?.['required']"
+                >⚠️ Email is required</span
+              >
+              <span *ngIf="email.errors?.['email']"
+                >⚠️ Please enter a valid email</span
+              >
+            </div>
+          </div>
+
+          <div class="form-group" [@slideInLeft]>
+            <label for="subject">
+              <span class="label-icon">📌</span>
+              Subject
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                [(ngModel)]="contact.subject"
+                placeholder="What is this regarding?"
+                class="form-input"
+              />
+              <div class="input-border"></div>
+            </div>
+          </div>
+
+          <div class="form-group" [@slideInLeft]>
+            <label for="message">
+              <span class="label-icon">💬</span>
+              Message
+            </label>
+            <div class="input-wrapper">
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                [(ngModel)]="contact.message"
+                #message="ngModel"
+                required
+                placeholder="Write your message here..."
+                class="form-textarea"
+              ></textarea>
+              <div class="input-border"></div>
+            </div>
+            <div class="char-counter" *ngIf="contact.message?.length">
+              {{ contact.message.length }}/500 characters
+            </div>
+            <div
+              *ngIf="message.invalid && message.touched"
+              class="error-message"
+            >
+              ⚠️ Message is required
+            </div>
+          </div>
+
+          <div class="form-actions" [@fadeInUp]>
+            <button
+              type="submit"
+              class="btn-submit"
+              [disabled]="contactForm.invalid || isSubmitting"
+            >
+              <span class="btn-icon">✉️</span>
+              <span>{{ isSubmitting ? "Sending..." : "Send Message" }}</span>
+            </button>
+            <button
+              type="button"
+              class="btn-reset"
+              (click)="resetForm(contactForm)"
+            >
+              <span class="btn-icon">🔄</span>
+              <span>Reset</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div class="success-toast" *ngIf="showSuccess" [@slideInOut]>
+    <div class="toast-content">
+      <span class="toast-icon">✅</span>
+      <span class="toast-message">{{ successMessage }}</span>
+      <button class="toast-close" (click)="showSuccess = false">✕</button>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isSubmitting" [@fadeInOut]>
+    <div class="loader-container">
+      <div class="loader"></div>
+      <p>Sending your message...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<!-- Announcement Bar -->
+<div
+  class="announcement-bar"
+  *ngIf="announcements.length > 0 && showAnnouncementBar"
+>
+  <div class="announcement-content">
+    <span class="announcement-icon">📢</span>
+    <div class="announcement-text">
+      <strong *ngFor="let ann of announcements; let i = index">
+        {{ ann.title }}: {{ ann.message }}
+        <span *ngIf="i < announcements.length - 1"> | </span>
+      </strong>
+    </div>
+  </div>
+  <button class="close-announcement" (click)="toggleAnnouncementBar()">
+    ✕
+  </button>
+</div>
+
+<main class="main-content">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Welcome to Our Store</div>
+      <h1 class="hero-title">Discover Amazing Products</h1>
+      <p class="hero-subtitle">
+        Explore our curated collection of high-quality items at unbeatable
+        prices
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{{ items.length }}+</span>
+          <span class="stat-label">Products</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Support</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">Secure</span>
+          <span class="stat-label">Payment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter and Search Section -->
+  <div class="filter-section">
+    <div class="filter-container">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="filterItems()"
+          placeholder="Search products..."
+          class="search-input"
+        />
+        <button *ngIf="searchTerm" class="clear-search" (click)="clearSearch()">
+          ✕
+        </button>
+      </div>
+
+      <div class="filter-controls">
+        <select
+          [(ngModel)]="sortBy"
+          (change)="filterItems()"
+          class="sort-select"
+        >
+          <option value="default">Sort by: Featured</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="nameAsc">Name: A to Z</option>
+          <option value="nameDesc">Name: Z to A</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading amazing products...</p>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="items-grid" *ngIf="!isLoading && filteredItems.length > 0">
+    <div
+      class="item-card"
+      *ngFor="let item of filteredItems; let i = index"
+      [style.animation-delay]="(i % 12) * 0.05 + 's'"
+    >
+      <div class="card-badge" *ngIf="i < 3">
+        <span *ngIf="i === 0" class="badge hot">🔥 Hot</span>
+        <span *ngIf="i === 1" class="badge new">✨ New</span>
+        <span *ngIf="i === 2" class="badge sale">💸 Sale</span>
+      </div>
+
+      <div class="image-wrapper">
+        <img
+          [src]="getImageUrl(item.imageUrl)"
+          [alt]="item.name"
+          class="item-image"
+        />
+        <div class="image-overlay">
+          <button class="quick-view-btn" (click)="quickView(item)">
+            👁️ Quick View
+          </button>
+        </div>
+      </div>
+
+      <div class="item-details">
+        <h3 class="item-title">{{ item.name }}</h3>
+        <p class="item-description">{{ truncateText(item.description, 60) }}</p>
+        <div class="price-section">
+          <span class="current-price">₹{{ formatPrice(item.price) }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-view" (click)="viewDetails(item.id)">
+          <span>👁️</span> View Details
+        </button>
+        <button class="btn-cart" (click)="addToCart(item)">
+          <span>🛒</span> Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && filteredItems.length === 0">
+    <div class="empty-icon">🛍️</div>
+    <h3>No Products Found</h3>
+    <p>
+      {{
+        searchTerm
+          ? "No products match your search criteria."
+          : "Check back later for new arrivals!"
+      }}
+    </p>
+    <button class="btn-reset" (click)="resetFilters()" *ngIf="searchTerm">
+      Clear Search
+    </button>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeModal()">✕</button>
+      <div class="modal-body" *ngIf="selectedItem">
+        <div class="modal-image">
+          <img
+            [src]="getImageUrl(selectedItem.imageUrl)"
+            [alt]="selectedItem.name"
+          />
+        </div>
+        <div class="modal-info">
+          <h2>{{ selectedItem.name }}</h2>
+          <p class="modal-price">₹{{ formatPrice(selectedItem.price) }}</p>
+          <p class="modal-description">{{ selectedItem.description }}</p>
+          <div class="modal-actions">
+            <button class="btn-primary" (click)="viewDetails(selectedItem.id)">
+              View Full Details
+            </button>
+            <button class="btn-secondary" (click)="addToCart(selectedItem)">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" (click)="scrollToTop()" *ngIf="showBackToTop">
+  ↑
+</button>

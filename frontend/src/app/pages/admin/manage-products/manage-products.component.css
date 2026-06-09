@@ -1,0 +1,280 @@
+.manage-products {
+  padding: 20px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #8b92b2;
+  font-size: 14px;
+}
+
+/* Search Bar */
+.search-bar {
+  background: #1a1f3a;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.search-input input {
+  width: 100%;
+  padding: 12px;
+  background: #0a0e27;
+  border: 1px solid #2a2f4a;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.filter-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-options select {
+  padding: 10px;
+  background: #0a0e27;
+  border: 1px solid #2a2f4a;
+  border-radius: 8px;
+  color: white;
+  flex: 1;
+}
+
+.add-btn {
+  background: #00d4ff;
+  color: #0a0e27;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Table */
+.table-container {
+  background: #1a1f3a;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #2a2f4a;
+  color: #e0e4f0;
+}
+
+.products-table th {
+  color: #8b92b2;
+  font-weight: 500;
+}
+
+.product-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-name {
+  font-weight: 500;
+}
+
+.price {
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.in-stock {
+  color: #00c864;
+}
+
+.out-stock {
+  color: #ff4444;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+.status-badge.active {
+  background: rgba(0, 200, 100, 0.15);
+  color: #00c864;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn, .view-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: rgba(0, 212, 255, 0.15);
+  color: #00d4ff;
+}
+
+.delete-btn {
+  background: rgba(255, 68, 68, 0.15);
+  color: #ff4444;
+}
+
+.view-btn {
+  background: rgba(255, 159, 67, 0.15);
+  color: #ff9f43;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+  background: #1a1f3a;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.bulk-actions span {
+  color: white;
+}
+
+.bulk-delete, .bulk-active, .bulk-inactive {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bulk-delete {
+  background: #ff4444;
+  color: white;
+}
+
+.bulk-active {
+  background: #00c864;
+  color: white;
+}
+
+.bulk-inactive {
+  background: #ff9f43;
+  color: white;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background: #1a1f3a;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1f3a;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #2a2f4a;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  background: #0a0e27;
+  border: 1px solid #2a2f4a;
+  border-radius: 6px;
+  color: white;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid #2a2f4a;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.save-btn, .cancel-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #00d4ff;
+  color: #0a0e27;
+}
+
+.cancel-btn {
+  background: #2a2f4a;
+  color: white;
+}

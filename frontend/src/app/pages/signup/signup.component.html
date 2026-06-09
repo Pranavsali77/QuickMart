@@ -1,0 +1,199 @@
+<div class="signup-page">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="grid-bg"></div>
+
+  <div class="signup-card">
+    <div class="card-accent"></div>
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="logo-icon">🛍️</div>
+      <h1>Create Account</h1>
+      <p>Join <span class="brand">MarketPlace</span> — it's free forever</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="steps">
+      <div class="step active">
+        <div class="step-dot">1</div>
+        <span>Details</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [class.active]="userData.email">
+        <div class="step-dot">2</div>
+        <span>Account</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [class.active]="userData.role">
+        <div class="step-dot">3</div>
+        <span>Role</span>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form (ngSubmit)="onSignup()" #signupForm="ngForm">
+      <!-- Name -->
+      <div class="field-group">
+        <label for="name">Full Name</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input
+            id="name"
+            type="text"
+            [(ngModel)]="userData.name"
+            name="name"
+            required
+            minlength="2"
+            placeholder="John Doe"
+            #nameRef="ngModel"
+          />
+        </div>
+        <span class="field-error" *ngIf="nameRef.invalid && nameRef.touched">
+          Name must be at least 2 characters
+        </span>
+      </div>
+
+      <!-- Email -->
+      <div class="field-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">✉</span>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="userData.email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            #emailRef="ngModel"
+          />
+        </div>
+        <span class="field-error" *ngIf="emailRef.invalid && emailRef.touched">
+          A valid email is required
+        </span>
+      </div>
+
+      <!-- Password -->
+      <div class="field-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="userData.password"
+            name="password"
+            required
+            minlength="6"
+            placeholder="Min. 6 characters"
+            #passRef="ngModel"
+          />
+          <button
+            type="button"
+            class="toggle-pass"
+            (click)="showPassword = !showPassword"
+          >
+            {{ showPassword ? "🙈" : "👁" }}
+          </button>
+        </div>
+
+        <!-- Password strength bar -->
+        <div class="strength-bar" *ngIf="userData.password">
+          <div
+            class="strength-fill"
+            [style.width]="getStrengthWidth()"
+            [style.background]="getStrengthColor()"
+          ></div>
+        </div>
+        <span
+          class="strength-label"
+          *ngIf="userData.password"
+          [style.color]="getStrengthColor()"
+        >
+          {{ getStrengthLabel() }}
+        </span>
+
+        <span class="field-error" *ngIf="passRef.invalid && passRef.touched">
+          Password must be at least 6 characters
+        </span>
+      </div>
+
+      <!-- Role -->
+      <div class="field-group">
+        <label>Account Type</label>
+        <div class="role-toggle">
+          <button
+            type="button"
+            class="role-btn"
+            [class.selected]="userData.role === 'USER'"
+            (click)="userData.role = 'USER'"
+          >
+            <span class="role-icon">🛒</span>
+            <span class="role-name">Shopper</span>
+            <span class="role-desc">Browse & buy products</span>
+          </button>
+          <button
+            type="button"
+            class="role-btn"
+            [class.selected]="userData.role === 'ADMIN'"
+            (click)="userData.role = 'ADMIN'"
+          >
+            <span class="role-icon">⚙️</span>
+            <span class="role-name">Admin</span>
+            <span class="role-desc">Manage the marketplace</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <label class="terms-check">
+        <input type="checkbox" [(ngModel)]="agreed" name="agreed" required />
+        <span class="checkmark"></span>
+        <span
+          >I agree to the <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Policy</a></span
+        >
+      </label>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="signupForm.invalid || !agreed || loading"
+      >
+        <span *ngIf="!loading">Create Account →</span>
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="divider"><span>or sign up with</span></div>
+
+    <!-- Social -->
+    <div class="social-row">
+      <button class="social-btn">
+        <img
+          src="https://www.svgrepo.com/show/475656/google-color.svg"
+          width="18"
+          alt="Google"
+        />
+        Google
+      </button>
+      <button class="social-btn">
+        <img
+          src="https://www.svgrepo.com/show/448234/github.svg"
+          width="18"
+          alt="GitHub"
+        />
+        GitHub
+      </button>
+    </div>
+
+    <p class="footer-text">
+      Already have an account?
+      <a routerLink="/login" class="login-link">Sign in →</a>
+    </p>
+  </div>
+</div>

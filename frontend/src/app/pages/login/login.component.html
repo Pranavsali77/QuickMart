@@ -1,0 +1,107 @@
+<div class="login-page">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="grid-bg"></div>
+
+  <div class="login-card">
+    <div class="card-accent"></div>
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="logo-icon">🛍️</div>
+      <h1>Welcome Back</h1>
+      <p>Sign in to your <span class="brand">MarketPlace</span> account</p>
+    </div>
+
+    <!-- Form -->
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="field-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrap">
+          <span class="input-icon">✉</span>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="loginData.email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            #emailRef="ngModel"
+          />
+        </div>
+        <span class="field-error" *ngIf="emailRef.invalid && emailRef.touched">
+          Valid email is required
+        </span>
+      </div>
+
+      <div class="field-group">
+        <div class="label-row">
+          <label for="password">Password</label>
+          <a routerLink="/forgot-password" class="forgot-link"
+            >Forgot password?</a
+          >
+        </div>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="loginData.password"
+            name="password"
+            required
+            placeholder="Enter your password"
+            #passRef="ngModel"
+          />
+          <button
+            type="button"
+            class="toggle-pass"
+            (click)="showPassword = !showPassword"
+          >
+            {{ showPassword ? "🙈" : "👁" }}
+          </button>
+        </div>
+        <span class="field-error" *ngIf="passRef.invalid && passRef.touched">
+          Password is required
+        </span>
+      </div>
+
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="loginForm.invalid || loading"
+      >
+        <span *ngIf="!loading">Sign In →</span>
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="divider"><span>or continue with</span></div>
+
+    <!-- Social -->
+    <div class="social-row">
+      <button class="social-btn">
+        <img
+          src="https://www.svgrepo.com/show/475656/google-color.svg"
+          width="18"
+          alt="Google"
+        />
+        Google
+      </button>
+      <button class="social-btn">
+        <img
+          src="https://www.svgrepo.com/show/448234/github.svg"
+          width="18"
+          alt="GitHub"
+        />
+        GitHub
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer-text">
+      Don't have an account?
+      <a routerLink="/signup" class="signup-link">Create one free →</a>
+    </p>
+  </div>
+</div>

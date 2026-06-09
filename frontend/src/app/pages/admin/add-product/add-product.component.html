@@ -1,0 +1,135 @@
+<div class="page-wrapper">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="form-card">
+    <div class="card-accent"></div>
+
+    <!-- Header -->
+    <div class="form-header">
+      <div class="header-icon">➕</div>
+      <div>
+        <h1>Add New Product</h1>
+        <p>Fill in the details to list a product on the marketplace</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Product Name -->
+      <div class="field-group">
+        <label for="name">Product Name</label>
+        <div class="input-wrap">
+          <span class="input-icon">🏷️</span>
+          <input
+            id="name"
+            type="text"
+            [(ngModel)]="name"
+            name="name"
+            required
+            placeholder="e.g. Wireless Headphones Pro"
+          />
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="field-group">
+        <label for="description">Description</label>
+        <div class="input-wrap textarea-wrap">
+          <span class="input-icon textarea-icon">📝</span>
+          <textarea
+            id="description"
+            [(ngModel)]="description"
+            name="description"
+            required
+            rows="4"
+            placeholder="Describe your product in detail..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Price & Category Row -->
+      <div class="two-col">
+        <div class="field-group">
+          <label for="price">Price (₹)</label>
+          <div class="input-wrap">
+            <span class="input-icon">💰</span>
+            <input
+              id="price"
+              type="number"
+              [(ngModel)]="price"
+              name="price"
+              required
+              min="0"
+              placeholder="0.00"
+            />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="stock">Stock Qty</label>
+          <div class="input-wrap">
+            <span class="input-icon">📦</span>
+            <input
+              id="stock"
+              type="number"
+              [(ngModel)]="stock"
+              name="stock"
+              min="0"
+              placeholder="0"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="field-group">
+        <label>Product Image</label>
+        <div
+          class="dropzone"
+          [class.has-file]="imagePreview"
+          (click)="fileInput.click()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+          [class.drag-over]="isDragging"
+        >
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            (change)="onFileChange($event)"
+            style="display: none"
+          />
+
+          <div class="dropzone-empty" *ngIf="!imagePreview">
+            <div class="drop-icon">🖼️</div>
+            <p class="drop-title">Drag & drop or <span>browse</span></p>
+            <p class="drop-sub">PNG, JPG, WEBP up to 5MB</p>
+          </div>
+
+          <div class="dropzone-preview" *ngIf="imagePreview">
+            <img [src]="imagePreview" alt="preview" />
+            <div class="preview-overlay">
+              <span>🔄 Change Image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-footer">
+        <button type="button" class="btn-reset" (click)="resetForm()">
+          ↺ Reset
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="loading || !name || !description || !price || !image"
+        >
+          <span *ngIf="!loading">🚀 Add Product</span>
+          <span *ngIf="loading" class="spinner"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

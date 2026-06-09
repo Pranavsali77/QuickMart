@@ -1,0 +1,392 @@
+<div class="sales-container">
+  <!-- Header -->
+  <div class="sales-header">
+    <h1>📦 Sale Records</h1>
+    <p>Track and manage all customer orders</p>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label>Filter by Status:</label>
+      <div class="status-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'ALL'"
+          (click)="filterByStatus('ALL')"
+        >
+          All Orders
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'PENDING'"
+          (click)="filterByStatus('PENDING')"
+        >
+          ⏳ Pending
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'CONFIRMED'"
+          (click)="filterByStatus('CONFIRMED')"
+        >
+          ✅ Confirmed
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'SHIPPED'"
+          (click)="filterByStatus('SHIPPED')"
+        >
+          🚚 Shipped
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'DELIVERED'"
+          (click)="filterByStatus('DELIVERED')"
+        >
+          ✅ Delivered
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="selectedStatus === 'CANCELLED'"
+          (click)="filterByStatus('CANCELLED')"
+        >
+          ❌ Cancelled
+        </button>
+      </div>
+    </div>
+
+    <!-- Payment Method Filter -->
+    <div class="filter-group">
+      <label>Filter by Payment:</label>
+      <div class="payment-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="selectedPayment === 'ALL'"
+          (click)="filterByPayment('ALL')"
+        >
+          All Payments
+        </button>
+        <button
+          class="tab-btn payment-cod"
+          [class.active]="selectedPayment === 'COD'"
+          (click)="filterByPayment('COD')"
+        >
+          💰 Cash on Delivery
+        </button>
+        <button
+          class="tab-btn payment-upi"
+          [class.active]="selectedPayment === 'UPI'"
+          (click)="filterByPayment('UPI')"
+        >
+          📱 UPI
+        </button>
+        <button
+          class="tab-btn payment-card"
+          [class.active]="selectedPayment === 'CARD'"
+          (click)="filterByPayment('CARD')"
+        >
+          💳 Card
+        </button>
+        <button
+          class="tab-btn payment-online"
+          [class.active]="selectedPayment === 'ONLINE'"
+          (click)="filterByPayment('ONLINE')"
+        >
+          🌐 Online
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterSales()"
+      placeholder="🔍 Search by order ID, customer name, or product..."
+    />
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading orders...</p>
+  </div>
+
+  <!-- Sales Table -->
+  <div class="table-container" *ngIf="!isLoading">
+    <table class="sales-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Product</th>
+          <th>Customer</th>
+          <th>Amount</th>
+          <th>Order Date</th>
+          <th>Payment Method</th>
+          <th>Status</th>
+          <th>Courier</th>
+          <th>Tracking No</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of filteredSales">
+          <td class="order-id">#{{ sale.id }}</td>
+          <td class="product-name">{{ sale.itemName }}</td>
+          <td>{{ sale.buyer }}</td>
+          <td class="price">₹{{ formatPrice(sale.price || 0) }}</td>
+          <td>{{ sale.orderDate | date: "dd/MM/yyyy" }}</td>
+          <td>
+            <span
+              class="payment-badge"
+              [class]="getPaymentClass(sale.paymentMethod)"
+            >
+              {{ getPaymentIcon(sale.paymentMethod) }}
+              {{ getPaymentMethodText(sale.paymentMethod) }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="status-badge"
+              [class]="getStatusClass(sale.orderStatus)"
+            >
+              {{ getStatusText(sale.orderStatus) }}
+            </span>
+          </td>
+          <td>
+            <span class="courier-name" *ngIf="sale.courierName">{{
+              sale.courierName
+            }}</span>
+            <span class="no-data" *ngIf="!sale.courierName">-</span>
+          </td>
+          <td>
+            <span class="tracking-number" *ngIf="sale.trackingNumber">{{
+              sale.trackingNumber
+            }}</span>
+            <span class="no-data" *ngIf="!sale.trackingNumber">-</span>
+          </td>
+          <td class="actions-cell">
+            <!-- Confirm button for PENDING orders -->
+            <button
+              *ngIf="sale.orderStatus === 'PENDING'"
+              class="action-btn confirm-btn"
+              (click)="updateStatus(sale.id, 'CONFIRMED')"
+            >
+              ✅ Confirm
+            </button>
+
+            <!-- Add Shipping button for CONFIRMED orders -->
+            <button
+              *ngIf="sale.orderStatus === 'CONFIRMED'"
+              class="action-btn shipped-btn"
+              (click)="openShippingModal(sale)"
+            >
+              🚚 Add Shipping
+            </button>
+
+            <!-- Deliver button for SHIPPED orders -->
+            <button
+              *ngIf="sale.orderStatus === 'SHIPPED'"
+              class="action-btn delivered-btn"
+              (click)="updateStatus(sale.id, 'DELIVERED')"
+            >
+              ✅ Deliver
+            </button>
+
+            <!-- Cancel button for PENDING orders -->
+            <button
+              *ngIf="sale.orderStatus === 'PENDING'"
+              class="action-btn cancel-btn"
+              (click)="updateStatus(sale.id, 'CANCELLED')"
+            >
+              ❌ Cancel
+            </button>
+
+            <!-- View Details button for all orders -->
+            <button
+              class="action-btn view-btn"
+              (click)="viewOrderDetails(sale)"
+            >
+              👁️ View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Payment Summary Cards -->
+  <div class="payment-summary" *ngIf="!isLoading && sales.length > 0">
+    <h3>Payment Method Summary</h3>
+    <div class="summary-cards">
+      <div class="summary-card cod">
+        <div class="summary-icon">💰</div>
+        <div class="summary-info">
+          <div class="summary-label">Cash on Delivery</div>
+          <div class="summary-count">{{ getPaymentCount("COD") }}</div>
+          <div class="summary-amount">
+            ₹{{ formatPrice(getPaymentTotal("COD")) }}
+          </div>
+        </div>
+      </div>
+      <div class="summary-card upi">
+        <div class="summary-icon">📱</div>
+        <div class="summary-info">
+          <div class="summary-label">UPI Payment</div>
+          <div class="summary-count">{{ getPaymentCount("UPI") }}</div>
+          <div class="summary-amount">
+            ₹{{ formatPrice(getPaymentTotal("UPI")) }}
+          </div>
+        </div>
+      </div>
+      <div class="summary-card card">
+        <div class="summary-icon">💳</div>
+        <div class="summary-info">
+          <div class="summary-label">Card Payment</div>
+          <div class="summary-count">{{ getPaymentCount("CARD") }}</div>
+          <div class="summary-amount">
+            ₹{{ formatPrice(getPaymentTotal("CARD")) }}
+          </div>
+        </div>
+      </div>
+      <div class="summary-card online">
+        <div class="summary-icon">🌐</div>
+        <div class="summary-info">
+          <div class="summary-label">Online Payment</div>
+          <div class="summary-count">{{ getPaymentCount("ONLINE") }}</div>
+          <div class="summary-amount">
+            ₹{{ formatPrice(getPaymentTotal("ONLINE")) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Shipping Modal -->
+<div
+  class="modal-overlay"
+  *ngIf="showShippingModal"
+  (click)="closeShippingModal()"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Add Shipping Details</h2>
+      <button class="close-btn" (click)="closeShippingModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-info">
+        <p><strong>Order ID:</strong> #{{ selectedSale?.id }}</p>
+        <p><strong>Product:</strong> {{ selectedSale?.itemName }}</p>
+        <p><strong>Customer:</strong> {{ selectedSale?.buyer }}</p>
+      </div>
+      <div class="form-group">
+        <label>Courier Name</label>
+        <select [(ngModel)]="courierName" class="form-input">
+          <option value="">Select Courier</option>
+          <option value="DTDC">DTDC</option>
+          <option value="BlueDart">BlueDart</option>
+          <option value="Delhivery">Delhivery</option>
+          <option value="Amazon Shipping">Amazon Shipping</option>
+          <option value="Flipkart Logistics">Flipkart Logistics</option>
+          <option value="Ecom Express">Ecom Express</option>
+          <option value="India Post">India Post</option>
+          <option value="XpressBees">XpressBees</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tracking Number</label>
+        <input
+          type="text"
+          [(ngModel)]="trackingNumber"
+          placeholder="Enter tracking number"
+          class="form-input"
+        />
+        <small>Example: DTDCNO123456, 1Z999AA10123456784</small>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeShippingModal()">Cancel</button>
+      <button
+        class="btn-save"
+        (click)="saveShippingDetails()"
+        [disabled]="!courierName || !trackingNumber"
+      >
+        Save & Ship
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Order Details Modal -->
+<div
+  class="modal-overlay"
+  *ngIf="showDetailsModal"
+  (click)="closeDetailsModal()"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Order Details #{{ selectedSale?.id }}</h2>
+      <button class="close-btn" (click)="closeDetailsModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="details-grid">
+        <div class="detail-item">
+          <label>Product Name:</label>
+          <span>{{ selectedSale?.itemName }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Customer Name:</label>
+          <span>{{ selectedSale?.buyer }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Payment Method:</label>
+          <span
+            class="payment-badge"
+            [class]="getPaymentClass(selectedSale?.paymentMethod)"
+          >
+            {{ getPaymentIcon(selectedSale?.paymentMethod) }}
+            {{ getPaymentMethodText(selectedSale?.paymentMethod) }}
+          </span>
+        </div>
+        <div class="detail-item" *ngIf="selectedSale?.paymentPlatform">
+          <label>Payment Platform:</label>
+          <span>{{ selectedSale?.paymentPlatform }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Order Status:</label>
+          <span
+            class="status-badge"
+            [class]="getStatusClass(selectedSale?.orderStatus)"
+          >
+            {{ getStatusText(selectedSale?.orderStatus) }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <label>Order Date:</label>
+          <span>{{ selectedSale?.orderDate | date: "medium" }}</span>
+        </div>
+        <div class="detail-item" *ngIf="selectedSale?.courierName">
+          <label>Courier Name:</label>
+          <span>{{ selectedSale?.courierName }}</span>
+        </div>
+        <div class="detail-item" *ngIf="selectedSale?.trackingNumber">
+          <label>Tracking Number:</label>
+          <span>{{ selectedSale?.trackingNumber }}</span>
+        </div>
+        <div class="detail-item" *ngIf="selectedSale?.shippingAddress">
+          <label>Shipping Address:</label>
+          <span>{{ selectedSale?.shippingAddress }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="close-modal-btn" (click)="closeDetailsModal()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

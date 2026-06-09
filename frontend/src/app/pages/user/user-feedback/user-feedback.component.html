@@ -1,0 +1,159 @@
+<div class="feedback-container">
+  <!-- Success Message with Animation -->
+  <div *ngIf="successMessage" class="success-toast" [@slideInOut]>
+    <div class="toast-content">
+      <span class="toast-icon">✅</span>
+      <span class="toast-message">{{ successMessage }}</span>
+      <button class="toast-close" (click)="successMessage = ''">✕</button>
+    </div>
+  </div>
+
+  <!-- Main Feedback Card -->
+  <div class="feedback-wrapper" [@fadeInUp]>
+    <div class="feedback-card">
+      <!-- Header Section -->
+      <div class="card-header">
+        <div class="header-icon">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <path
+              d="M8 8H16M8 12H13"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>We Value Your Feedback</h1>
+          <p>Your opinion helps us improve and serve you better</p>
+        </div>
+      </div>
+
+      <!-- Form Section -->
+      <form (ngSubmit)="onSubmit()" #form="ngForm" class="feedback-form">
+        <!-- Name Input with Animation -->
+        <div class="form-group" [@slideInLeft]>
+          <label for="name" class="form-label">
+            <span class="label-icon">👤</span>
+            Full Name
+          </label>
+          <div class="input-wrapper">
+            <input
+              id="name"
+              type="text"
+              class="form-input"
+              name="name"
+              [(ngModel)]="feedback.customerName"
+              #name="ngModel"
+              required
+              placeholder="Enter your full name"
+            />
+            <div class="input-border"></div>
+          </div>
+          <div *ngIf="name.invalid && name.touched" class="error-message">
+            ⚠️ Name is required
+          </div>
+        </div>
+
+        <!-- Email Input with Animation -->
+        <div class="form-group" [@slideInLeft]>
+          <label for="email" class="form-label">
+            <span class="label-icon">📧</span>
+            Email Address
+          </label>
+          <div class="input-wrapper">
+            <input
+              id="email"
+              type="email"
+              class="form-input"
+              name="email"
+              [(ngModel)]="feedback.email"
+              #email="ngModel"
+              required
+              email
+              placeholder="your@email.com"
+            />
+            <div class="input-border"></div>
+          </div>
+          <div *ngIf="email.invalid && email.touched" class="error-message">
+            <span *ngIf="email.errors?.['required']">⚠️ Email is required</span>
+            <span *ngIf="email.errors?.['email']"
+              >⚠️ Please enter a valid email</span
+            >
+          </div>
+        </div>
+
+        <!-- Message Input with Animation -->
+        <div class="form-group" [@slideInLeft]>
+          <label for="message" class="form-label">
+            <span class="label-icon">💬</span>
+            Your Feedback
+          </label>
+          <div class="input-wrapper">
+            <textarea
+              id="message"
+              class="form-textarea"
+              name="message"
+              rows="5"
+              [(ngModel)]="feedback.message"
+              #message="ngModel"
+              required
+              placeholder="Tell us about your experience..."
+            ></textarea>
+            <div class="input-border"></div>
+          </div>
+          <div class="char-counter" *ngIf="feedback.message?.length">
+            {{ feedback.message.length }}/500 characters
+          </div>
+          <div *ngIf="message.invalid && message.touched" class="error-message">
+            ⚠️ Feedback message is required
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions" [@fadeInUp]>
+          <button
+            type="submit"
+            class="btn-submit"
+            [disabled]="form.invalid || isSubmitting"
+          >
+            <span class="btn-icon">✉️</span>
+            <span>{{ isSubmitting ? "Sending..." : "Submit Feedback" }}</span>
+          </button>
+          <button type="button" class="btn-skip" (click)="skipFeedback()">
+            <span class="btn-icon">⏭️</span>
+            <span>Skip for Now</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer Note -->
+      <div class="feedback-footer" [@fadeIn]>
+        <div class="footer-note">
+          <span class="note-icon">🌟</span>
+          <span>Your feedback helps us improve our service</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isSubmitting" [@fadeInOut]>
+    <div class="loader-container">
+      <div class="loader"></div>
+      <p>Sending your feedback...</p>
+    </div>
+  </div>
+</div>

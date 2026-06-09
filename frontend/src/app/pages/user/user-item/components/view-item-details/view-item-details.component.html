@@ -1,0 +1,86 @@
+<div class="product-container" *ngIf="item">
+  <!-- Back Button -->
+  <button class="back-button" (click)="goBack()">
+    <span class="back-icon">←</span> Back to Products
+  </button>
+
+  <div class="product-wrapper">
+    <div class="product-card">
+      <!-- Image Section -->
+      <div class="product-gallery">
+        <div class="main-image">
+          <img
+            [src]="getImageUrl(item.imageUrl)"
+            [alt]="item.name"
+            (error)="onImageError($event)"
+            class="product-image"
+          />
+        </div>
+      </div>
+
+      <!-- Product Info Section -->
+      <div class="product-info">
+        <!-- Product Title -->
+        <h1 class="product-title">{{ item.name }}</h1>
+
+        <!-- Price Section -->
+        <div class="price-section">
+          <span class="current-price">₹{{ formatPrice(item.price) }}</span>
+        </div>
+
+        <!-- Description -->
+        <div class="description-section">
+          <h3>Product Description</h3>
+          <p class="product-description">{{ item.description }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-buy" (click)="buyNow()">
+            <span class="btn-icon">⚡</span> Buy Now
+          </button>
+          <button class="btn-cart" (click)="addToCart()">
+            <span class="btn-icon">🛒</span> Add to Cart
+          </button>
+        </div>
+        <!-- Shipping Info -->
+        <div class="shipping-info">
+          <div class="info-item">
+            <span class="info-icon">🚚</span>
+            <div class="info-text">
+              <strong>Free Shipping</strong>
+              <span>On orders over ₹999</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🔄</span>
+            <div class="info-text">
+              <strong>7 Days Return</strong>
+              <span>Easy return policy</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🔒</span>
+            <div class="info-text">
+              <strong>Secure Payment</strong>
+              <span>100% secure transactions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Animation -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loader"></div>
+  </div>
+</div>
+
+<!-- Error State -->
+<div class="error-container" *ngIf="!item && !isLoading">
+  <div class="error-icon">🛒</div>
+  <h2>Product Not Found</h2>
+  <p>The product you're looking for doesn't exist or has been removed.</p>
+  <button class="btn-home" (click)="goBack()">Browse Products</button>
+</div>

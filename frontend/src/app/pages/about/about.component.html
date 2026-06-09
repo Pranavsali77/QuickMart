@@ -1,0 +1,228 @@
+<div class="about-page">
+  <!-- Hero Section -->
+  <div class="hero-section" [@fadeInUp]>
+    <div class="hero-content">
+      <div class="hero-badge">✨ Welcome to</div>
+      <h1 class="hero-title">Our Marketplace</h1>
+      <div class="hero-line"></div>
+      <p class="hero-subtitle">
+        Your one-stop platform for discovering and purchasing quality products
+      </p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">1000+</span>
+          <span class="stat-label">Products</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Sellers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Happy Customers</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-shape">
+      <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill="rgba(255,255,255,0.1)"
+          d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="about-container">
+    <!-- Mission Section -->
+    <div class="section mission-section" [@slideInLeft]>
+      <div class="section-icon">🎯</div>
+      <h2 class="section-title">Our Mission</h2>
+      <div class="section-content">
+        <p>
+          To empower individuals, small businesses, and enterprises by offering
+          a reliable and innovative e-commerce platform that supports growth,
+          customer satisfaction, and transparency in every transaction.
+        </p>
+      </div>
+    </div>
+
+    <!-- NEW: Why Choose Us Section -->
+    <div class="section why-us-section" [@slideInRight]>
+      <div class="section-icon">⭐</div>
+      <h2 class="section-title">Why Choose Us</h2>
+      <div class="why-us-grid">
+        <div
+          class="why-us-card"
+          *ngFor="let reason of whyUsReasons; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="why-us-icon">{{ reason.icon }}</div>
+          <h3 class="why-us-title">{{ reason.title }}</h3>
+          <p class="why-us-description">{{ reason.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- What We Offer Section -->
+    <div class="section offers-section" [@slideInLeft]>
+      <div class="section-icon">✨</div>
+      <h2 class="section-title">What We Offer</h2>
+      <div class="offers-grid">
+        <div
+          class="offer-card"
+          *ngFor="let offer of offers; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="offer-icon">{{ offer.icon }}</div>
+          <h3 class="offer-title">{{ offer.title }}</h3>
+          <p class="offer-description">{{ offer.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: How It Works Section -->
+    <div class="section how-it-works-section" [@slideInRight]>
+      <div class="section-icon">🔄</div>
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps-container">
+        <div
+          class="step"
+          *ngFor="let step of steps; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="step-number">{{ step.number }}</div>
+          <div class="step-content">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Values Section -->
+    <div class="section values-section" [@slideInLeft]>
+      <div class="section-icon">💎</div>
+      <h2 class="section-title">Our Values</h2>
+      <div class="values-grid">
+        <div
+          class="value-card"
+          *ngFor="let value of values; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="value-icon">{{ value.icon }}</div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: Testimonials Section -->
+    <div class="section testimonials-section" [@slideInRight]>
+      <div class="section-icon">💬</div>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <div class="testimonials-grid">
+        <div
+          class="testimonial-card"
+          *ngFor="let testimonial of testimonials; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">{{ testimonial.text }}</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">{{ testimonial.avatar }}</div>
+            <div class="author-info">
+              <h4>{{ testimonial.name }}</h4>
+              <span>{{ testimonial.role }}</span>
+            </div>
+          </div>
+          <div class="rating">
+            <span
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              class="star"
+              [class.filled]="star <= testimonial.rating"
+              >★</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: FAQ Section -->
+    <div class="section faq-section" [@slideInLeft]>
+      <div class="section-icon">❓</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div
+          class="faq-item"
+          *ngFor="let faq of faqs; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="faq-question">
+            <span class="faq-icon">📌</span>
+            <h3>{{ faq.question }}</h3>
+          </div>
+          <p class="faq-answer">{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technology Stack Section -->
+    <div class="section tech-section" [@slideInRight]>
+      <div class="section-icon">⚙️</div>
+      <h2 class="section-title">Technology Stack</h2>
+      <div class="tech-stack">
+        <div
+          class="tech-item"
+          *ngFor="let tech of technologies; let i = index"
+          [@fadeIn]
+          [style.animation-delay]="i * 0.1 + 's'"
+        >
+          <div class="tech-icon">{{ tech.icon }}</div>
+          <div class="tech-info">
+            <h4>{{ tech.name }}</h4>
+            <p>{{ tech.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: Achievements Section -->
+    <div class="section achievements-section" [@slideInLeft]>
+      <div class="section-icon">🏆</div>
+      <h2 class="section-title">Our Achievements</h2>
+      <div class="achievements-grid">
+        <div
+          class="achievement-card"
+          *ngFor="let achievement of achievements; let i = index"
+          [@cardAnimation]
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <div class="achievement-icon">{{ achievement.icon }}</div>
+          <div class="achievement-number">{{ achievement.number }}</div>
+          <div class="achievement-label">{{ achievement.label }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section" [@fadeInUp]>
+      <h3>Ready to Start Your Journey?</h3>
+      <p>Join thousands of happy customers and sellers on our platform</p>
+      <div class="cta-buttons">
+        <button class="btn-primary" (click)="navigateTo('/user/items')">
+          Shop Now
+        </button>
+        <button class="btn-secondary" (click)="navigateTo('/register')">
+          Become a Seller
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

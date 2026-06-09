@@ -1,0 +1,111 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>🛒 My Cart</h1>
+    <p>Review and manage your items</p>
+  </div>
+
+  <!-- Empty Cart -->
+  <div class="empty-cart" *ngIf="cart.items.length === 0">
+    <div class="empty-icon">🛒</div>
+    <h2>Your Cart is Empty</h2>
+    <p>Looks like you haven't added any items to your cart yet.</p>
+    <button class="shop-now-btn" (click)="continueShopping()">
+      Continue Shopping
+    </button>
+  </div>
+
+  <!-- Cart with items -->
+  <div class="cart-content" *ngIf="cart.items.length > 0">
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cart.items">
+        <div class="item-image">
+          <img
+            [src]="getImageUrl(item.imageUrl)"
+            [alt]="item.name"
+            (error)="onImageError($event)"
+          />
+        </div>
+
+        <div class="item-details">
+          <h3>{{ item.name }}</h3>
+          <p class="item-price">₹{{ formatPrice(item.price) }}</p>
+        </div>
+
+        <div class="item-quantity">
+          <button
+            class="qty-btn"
+            (click)="updateQuantity(item, item.quantity - 1)"
+          >
+            -
+          </button>
+          <span class="qty-value">{{ item.quantity }}</span>
+          <button
+            class="qty-btn"
+            (click)="updateQuantity(item, item.quantity + 1)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="item-total">
+          <span>Total:</span>
+          <strong>₹{{ formatPrice(item.total) }}</strong>
+        </div>
+
+        <button class="remove-btn" (click)="removeItem(item)" title="Remove">
+          🗑️
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Total Items:</span>
+        <span>{{ cart.totalItems }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Total Amount:</span>
+        <span class="total-amount">₹{{ formatPrice(cart.totalAmount) }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery Charges:</span>
+        <span *ngIf="cart.totalAmount > 999" class="free">Free</span>
+        <span *ngIf="cart.totalAmount <= 999" class="delivery-charge">₹50</span>
+      </div>
+
+      <div class="summary-row grand-total" *ngIf="cart.totalAmount <= 999">
+        <span>Grand Total:</span>
+        <span>₹{{ formatPrice(cart.totalAmount + 50) }}</span>
+      </div>
+
+      <div class="delivery-info" *ngIf="cart.totalAmount < 999">
+        <span class="info-icon">🚚</span>
+        <span
+          >Add ₹{{ formatPrice(999 - cart.totalAmount) }} more for FREE
+          Delivery</span
+        >
+      </div>
+
+      <div class="delivery-info free-delivery" *ngIf="cart.totalAmount >= 999">
+        <span class="info-icon">🎉</span>
+        <span>Congratulations! You get FREE Delivery</span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="clear-btn" (click)="clearCart()">Clear Cart</button>
+        <button class="checkout-btn" (click)="proceedToCheckout()">
+          Proceed to Checkout
+        </button>
+      </div>
+
+      <button class="continue-btn" (click)="continueShopping()">
+        ← Continue Shopping
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,415 @@
+<div class="orders-container">
+  <!-- Alert Banner for Notifications -->
+  <div class="alert-banner" *ngIf="showAlert" [class]="alertType">
+    <div class="alert-content">
+      <span class="alert-icon">
+        {{
+          alertType === "shipped"
+            ? "🚚"
+            : alertType === "delivered"
+              ? "✅"
+              : alertType === "cancelled"
+                ? "❌"
+                : "🎉"
+        }}
+      </span>
+      <span class="alert-message">{{ alertMessage }}</span>
+      <button class="alert-close" (click)="closeAlert()">✕</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="orders-header">
+    <h1>📦 My Orders</h1>
+    <p>View and track all your orders</p>
+  </div>
+
+  <!-- Status Filter Tabs -->
+  <div class="status-tabs">
+    <button
+      class="tab-btn"
+      [class.active]="selectedStatus === 'ALL'"
+      (click)="filterByStatus('ALL')"
+    >
+      All Orders
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedStatus === 'PENDING'"
+      (click)="filterByStatus('PENDING')"
+    >
+      ⏳ Pending
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedStatus === 'SHIPPED'"
+      (click)="filterByStatus('SHIPPED')"
+    >
+      🚚 Shipped
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedStatus === 'DELIVERED'"
+      (click)="filterByStatus('DELIVERED')"
+    >
+      ✅ Delivered
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedStatus === 'CANCELLED'"
+      (click)="filterByStatus('CANCELLED')"
+    >
+      ❌ Cancelled
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterOrders()"
+      placeholder="🔍 Search by order ID or product name..."
+    />
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading your orders...</p>
+  </div>
+
+  <!-- Orders List -->
+  <div class="orders-list" *ngIf="!isLoading && filteredOrders.length > 0">
+    <div class="order-card" *ngFor="let order of filteredOrders">
+      <!-- Order Header -->
+      <div class="order-header">
+        <div class="order-info">
+          <div class="order-id">
+            <span class="label">Order ID:</span>
+            <span class="value">#{{ order.id }}</span>
+          </div>
+          <div class="order-date">
+            <span class="label">Order Date:</span>
+            <span class="value">{{ order.orderDate | date: "medium" }}</span>
+          </div>
+        </div>
+        <div class="order-status">
+          <span
+            class="status-badge"
+            [class]="getStatusClass(order.orderStatus)"
+          >
+            {{ getStatusText(order.orderStatus) }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div class="order-items">
+        <div class="items-header">
+          <h3>Item Ordered</h3>
+        </div>
+
+        <div class="item-list">
+          <div class="item-row">
+            <div class="item-image">
+              <img
+                [src]="getImageUrl(order.imageUrl || 'default.jpg')"
+                [alt]="order.itemName"
+                (error)="onImageError($event)"
+              />
+            </div>
+            <div class="item-details">
+              <h4>{{ order.itemName }}</h4>
+              <p>Buyer: {{ order.buyer }}</p>
+              <p class="item-price">
+                Price: ₹{{ formatPrice(order.price || 0) }}
+              </p>
+            </div>
+            <div class="item-total">
+              <strong>Quantity: {{ order.quantity || 1 }}</strong>
+              <p class="total-amount">
+                Total: ₹{{
+                  formatPrice((order.price || 0) * (order.quantity || 1))
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracking Progress Bar -->
+      <div class="tracking-progress" *ngIf="order.orderStatus !== 'CANCELLED'">
+        <div class="progress-steps">
+          <div class="step" [class.completed]="true">
+            <div class="step-icon">📝</div>
+            <div class="step-label">Ordered</div>
+          </div>
+          <div
+            class="step-line"
+            [class.completed]="
+              order.orderStatus === 'SHIPPED' ||
+              order.orderStatus === 'DELIVERED'
+            "
+          ></div>
+          <div
+            class="step"
+            [class.completed]="
+              order.orderStatus === 'SHIPPED' ||
+              order.orderStatus === 'DELIVERED'
+            "
+          >
+            <div class="step-icon">🚚</div>
+            <div class="step-label">Shipped</div>
+          </div>
+          <div
+            class="step-line"
+            [class.completed]="order.orderStatus === 'DELIVERED'"
+          ></div>
+          <div
+            class="step"
+            [class.completed]="order.orderStatus === 'DELIVERED'"
+          >
+            <div class="step-icon">✅</div>
+            <div class="step-label">Delivered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracking Info -->
+      <div class="tracking-info" *ngIf="order.trackingNumber">
+        <span class="tracking-label">📮 Tracking Number:</span>
+        <span class="tracking-number">{{ order.trackingNumber }}</span>
+      </div>
+
+      <!-- Order Footer with Payment Method -->
+      <div class="order-footer">
+        <div class="shipping-info">
+          <span class="icon">🚚</span>
+          <span>Delivery: Standard Shipping</span>
+        </div>
+        <div class="payment-info">
+          <span class="icon">💳</span>
+          <span>Payment:</span>
+          <span
+            class="payment-method-badge"
+            [class]="getPaymentMethodClass(order.paymentMethod)"
+          >
+            {{ getPaymentMethodText(order.paymentMethod) }}
+          </span>
+          <span class="payment-platform" *ngIf="order.paymentPlatform">
+            via {{ order.paymentPlatform }}
+          </span>
+        </div>
+        <button class="track-btn" (click)="trackOrder(order)">
+          🔍 Track Order
+        </button>
+      </div>
+
+      <!-- Order Actions -->
+      <div class="order-actions">
+        <button
+          class="cancel-btn"
+          *ngIf="order.orderStatus === 'PENDING'"
+          (click)="cancelOrder(order)"
+        >
+          ❌ Cancel Order
+        </button>
+        <button
+          class="reorder-btn"
+          *ngIf="order.orderStatus === 'DELIVERED'"
+          (click)="reorder(order)"
+        >
+          🛒 Buy Again
+        </button>
+        <button
+          class="review-btn"
+          *ngIf="order.orderStatus === 'DELIVERED'"
+          (click)="writeReview(order)"
+        >
+          ⭐ Write a Review
+        </button>
+        <button class="support-btn" (click)="contactSupport(order)">
+          💬 Need Help?
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && filteredOrders.length === 0">
+    <div class="empty-icon">🛒</div>
+    <h2>No Orders Yet</h2>
+    <p>
+      {{
+        searchTerm
+          ? "No orders match your search."
+          : "You haven't placed any orders yet. Start shopping now!"
+      }}
+    </p>
+    <button class="shop-now-btn" (click)="goToShop()">Start Shopping</button>
+  </div>
+</div>
+
+<!-- Track Order Modal -->
+<div
+  class="modal-overlay"
+  *ngIf="showTrackingModal"
+  (click)="closeTrackingModal()"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Track Order #{{ selectedOrder?.id }}</h2>
+      <button class="close-btn" (click)="closeTrackingModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Order Timeline -->
+      <div class="tracking-timeline">
+        <div class="timeline-step" [class.completed]="true">
+          <div class="timeline-icon">📝</div>
+          <div class="timeline-content">
+            <strong>Order Placed</strong>
+            <span>{{ selectedOrder?.orderDate | date: "medium" }}</span>
+          </div>
+        </div>
+        <div
+          class="timeline-step"
+          [class.completed]="
+            selectedOrder?.orderStatus === 'SHIPPED' ||
+            selectedOrder?.orderStatus === 'DELIVERED'
+          "
+        >
+          <div class="timeline-icon">🚚</div>
+          <div class="timeline-content">
+            <strong>Shipped</strong>
+            <span>{{
+              selectedOrder?.shippedDate
+                ? (selectedOrder?.shippedDate | date: "medium")
+                : "Pending"
+            }}</span>
+          </div>
+        </div>
+        <div
+          class="timeline-step"
+          [class.completed]="selectedOrder?.orderStatus === 'DELIVERED'"
+        >
+          <div class="timeline-icon">✅</div>
+          <div class="timeline-content">
+            <strong>Delivered</strong>
+            <span>{{
+              selectedOrder?.deliveredDate
+                ? (selectedOrder?.deliveredDate | date: "medium")
+                : "Pending"
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Details in Modal -->
+      <div class="payment-details-modal">
+        <h3>💳 Payment Details</h3>
+        <div class="detail-row">
+          <span class="label">Payment Method:</span>
+          <span class="value">
+            <span
+              class="payment-method-badge"
+              [class]="getPaymentMethodClass(selectedOrder?.paymentMethod)"
+            >
+              {{ getPaymentMethodText(selectedOrder?.paymentMethod) }}
+            </span>
+          </span>
+        </div>
+        <div class="detail-row" *ngIf="selectedOrder?.paymentPlatform">
+          <span class="label">Payment Platform:</span>
+          <span class="value">{{ selectedOrder?.paymentPlatform }}</span>
+        </div>
+      </div>
+
+      <!-- Shipping Details -->
+      <div class="shipping-details" *ngIf="selectedOrder?.trackingNumber">
+        <h3>📦 Shipping Details</h3>
+        <div class="detail-row">
+          <span class="label">Tracking Number:</span>
+          <span class="value">{{ selectedOrder?.trackingNumber }}</span>
+        </div>
+        <div class="detail-row" *ngIf="selectedOrder?.shippingAddress">
+          <span class="label">Shipping Address:</span>
+          <span class="value">{{ selectedOrder?.shippingAddress }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Courier Partner:</span>
+          <span class="value">{{
+            selectedOrder?.courierPartner || "Standard Shipping"
+          }}</span>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h3>📋 Order Summary</h3>
+        <div class="detail-row">
+          <span class="label">Order ID:</span>
+          <span class="value">#{{ selectedOrder?.id }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Item Name:</span>
+          <span class="value">{{ selectedOrder?.itemName }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Quantity:</span>
+          <span class="value">{{ selectedOrder?.quantity || 1 }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Total Amount:</span>
+          <span class="value"
+            >₹{{
+              formatPrice(
+                (selectedOrder?.price || 0) * (selectedOrder?.quantity || 1)
+              )
+            }}</span
+          >
+        </div>
+      </div>
+
+      <!-- Estimated Delivery -->
+      <div
+        class="estimated-delivery"
+        *ngIf="
+          selectedOrder?.orderStatus !== 'DELIVERED' &&
+          selectedOrder?.orderStatus !== 'CANCELLED'
+        "
+      >
+        <div class="delivery-icon">🚚</div>
+        <div class="delivery-info">
+          <strong>Estimated Delivery Date</strong>
+          <span>{{
+            getEstimatedDelivery(selectedOrder?.orderDate) | date: "mediumDate"
+          }}</span>
+        </div>
+      </div>
+
+      <!-- Delivery Confirmation -->
+      <div
+        class="delivery-confirmation"
+        *ngIf="selectedOrder?.orderStatus === 'DELIVERED'"
+      >
+        <div class="confirmation-icon">✅</div>
+        <div class="confirmation-info">
+          <strong>Delivered On</strong>
+          <span>{{ selectedOrder?.deliveredDate | date: "medium" }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="close-modal-btn" (click)="closeTrackingModal()">
+        Close
+      </button>
+      <button
+        class="track-support-btn"
+        (click)="contactSupport(selectedOrder!)"
+      >
+        Need Help?
+      </button>
+    </div>
+  </div>
+</div>
