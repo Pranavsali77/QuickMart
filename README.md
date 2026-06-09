@@ -1,92 +1,96 @@
 <div align="center">
 
-# 🛍️ QuickMart - E-Commerce Platform
+# 🛍️ **QuickMart** - Enterprise E-Commerce Platform
 
-![Angular](https://img.shields.io/badge/Angular-17-red?logo=angular&style=for-the-badge)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-brightgreen?logo=springboot&style=for-the-badge)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql&style=for-the-badge)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&style=for-the-badge)
-![Java](https://img.shields.io/badge/Java-17-orange?logo=java&style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+### *"Making Online Shopping Quick & Easy"*
+
+![Angular](https://img.shields.io/badge/Angular-17-red?logo=angular&style=flat-square)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-brightgreen?logo=springboot&style=flat-square)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql&style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&style=flat-square)
+![Java](https://img.shields.io/badge/Java-17-orange?logo=java&style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 </div>
 
 ---
 
-## 📌 Table of Contents
+## 📌 **Table of Contents**
 
-- [About QuickMart](#-about-quickmart)
-- [Key Features](#-key-features)
-- [Technology Stack](#-technology-stack)
-- [Installation Guide](#-installation-guide)
-- [User Workflow](#-user-workflow)
-- [API Endpoints](#-api-endpoints)
-- [Testing Credentials](#-testing-credentials)
-- [Project Structure](#-project-structure)
-- [Troubleshooting](#-troubleshooting)
-- [Future Roadmap](#-future-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Acknowledgments](#-acknowledgments)
+| Section | Description |
+|---------|-------------|
+| [About QuickMart](#-about-quickmart) | Project overview and mission |
+| [Key Features](#-key-features) | User and admin features |
+| [Technology Stack](#-technology-stack) | Frontend and backend technologies |
+| [Installation Guide](#-installation-guide) | Step by step setup |
+| [API Endpoints](#-api-endpoints) | REST API documentation |
+| [User Workflow](#-user-workflow) | Customer and admin journeys |
+| [Testing Credentials](#-testing-credentials) | Test accounts |
+| [Project Structure](#-project-structure) | Folder organization |
+| [Troubleshooting](#-troubleshooting-guide) | Common issues and solutions |
+| [Future Roadmap](#-future-roadmap) | Upcoming features |
+| [Contributing](#-contributing-guidelines) | How to contribute |
+| [License](#-license) | MIT License |
+| [Contact](#-contact) | Support and inquiries |
 
 ---
 
-## 📌 About QuickMart
+## 📌 **About QuickMart**
 
-QuickMart is a complete full-stack e-commerce platform that connects buyers and sellers through an intuitive, feature-rich online marketplace. Built with **Angular 17** for dynamic frontend experiences and **Spring Boot 3** for robust backend APIs, QuickMart delivers a seamless shopping experience with powerful administrative controls.
+**QuickMart** is a complete full-stack e-commerce platform that connects buyers and sellers through an intuitive, feature-rich online marketplace. Built with **Angular 17** for dynamic frontend experiences and **Spring Boot 3** for robust backend APIs, QuickMart delivers a seamless shopping experience with powerful administrative controls.
 
-### 🎯 Mission
+### 🎯 **Mission**
 
 > *"To provide a reliable, secure, and user-friendly e-commerce solution that empowers customers to shop conveniently while giving administrators complete control over their online store."*
 
 ---
 
-## ✨ Key Features
+## ✨ **Key Features**
 
-### 👤 Customer Features
-
-| Icon | Feature | Description |
-|:----:|---------|-------------|
-| 🔐 | **Authentication** | Secure JWT-based login and registration system |
-| 🛍️ | **Product Catalog** | Browse products with advanced search, filters, and sorting |
-| 🔍 | **Product Details** | View detailed product information with high-quality images |
-| 🛒 | **Shopping Cart** | Add/remove items, update quantities, real-time price calculation |
-| 💝 | **Wishlist** | Save favorite products for future purchase |
-| 💳 | **Multiple Payments** | Support for COD, UPI (Google Pay, PhonePe, Paytm, BHIM), and Credit/Debit cards |
-| 📦 | **Order Tracking** | Real-time order tracking with visual timeline |
-| ⭐ | **Reviews & Ratings** | Submit feedback and rate purchased products |
-| 👤 | **Profile Management** | Update personal information and change password |
-| 📱 | **Responsive Design** | Fully responsive UI works on all devices |
-
-### 👑 Administrator Features
+### 👤 **Customer Features**
 
 | Icon | Feature | Description |
 |:----:|---------|-------------|
-| 📊 | **Analytics Dashboard** | Real-time statistics on products, orders, revenue, and users |
-| ➕ | **Product Management** | Complete CRUD operations for products |
-| 📦 | **Order Management** | Full order lifecycle management from pending to delivered |
-| 🚚 | **Shipping Integration** | Add courier name and tracking numbers for orders |
-| 📢 | **Announcements** | Publish updates and alerts for customers |
-| 💬 | **Feedback Management** | View and respond to customer feedback |
-| 👥 | **User Management** | Manage registered users and their permissions |
+| 🔐 | **Authentication** | Secure JWT-based login and registration |
+| 🛍️ | **Product Catalog** | Browse with search, filters, and sorting |
+| 🔍 | **Product Details** | High-quality images and detailed info |
+| 🛒 | **Shopping Cart** | Add/remove items, update quantities |
+| 💝 | **Wishlist** | Save favorite products |
+| 💳 | **Multiple Payments** | COD, UPI, Credit/Debit cards |
+| 📦 | **Order Tracking** | Real-time tracking with timeline |
+| ⭐ | **Reviews & Ratings** | Submit feedback and rate products |
+| 👤 | **Profile Management** | Update personal information |
+| 📱 | **Responsive Design** | Works on all devices |
+
+### 👑 **Administrator Features**
+
+| Icon | Feature | Description |
+|:----:|---------|-------------|
+| 📊 | **Analytics Dashboard** | Real-time statistics and insights |
+| ➕ | **Product Management** | Complete CRUD operations |
+| 📦 | **Order Management** | Full order lifecycle management |
+| 🚚 | **Shipping Integration** | Add courier and tracking details |
+| 📢 | **Announcements** | Publish updates for customers |
+| 💬 | **Feedback Management** | View and respond to feedback |
+| 👥 | **User Management** | Manage registered users |
 
 ---
 
-## 📦 Order Status Workflow
-┌─────────────────────────────────────────────────────────────────────────┐
+## 📦 **Order Status Workflow**
+┌─────────────────────────────────────────────────────────────────┐
 │ │
 │ 📝 PENDING ──→ ✅ CONFIRMED ──→ 🚚 SHIPPED ──→ 🎉 DELIVERED │
 │ │ │ │
 │ ↓ ↓ │
 │ ❌ CANCELLED ❌ CANCELLED │
 │ │
-└─────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────┘
 
 text
 
 ---
 
-## 💳 Payment Methods Supported
+## 💳 **Payment Methods Supported**
 
 | Icon | Method | Status |
 |:----:|--------|:------:|
@@ -97,7 +101,7 @@ text
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ **Technology Stack**
 
 ### Frontend Technologies
 
@@ -121,9 +125,9 @@ text
 
 ---
 
-## 🚀 Installation Guide
+## 🚀 **Installation Guide**
 
-### 📋 Prerequisites
+### 📋 **Prerequisites**
 
 | Tool | Version | Purpose |
 |------|---------|---------|
@@ -133,297 +137,337 @@ text
 | MySQL | 8.0+ | Database |
 | Maven | 3.9+ | Build tool |
 
-### 📥 Step 1: Clone Repository
+---
+
+### 📥 **Step 1: Clone Repository**
 
 ```bash
 git clone https://github.com/yourusername/quickmart.git
 cd quickmart
 ⚙️ Step 2: Backend Setup
 bash
-# Navigate to backend directory
+# Navigate to backend
 cd backend
 
-# Create MySQL database
+# Create database
 mysql -u root -p
 CREATE DATABASE quickmart_db;
 EXIT;
-
-# Configure database in application.properties
-# Edit: src/main/resources/application.properties
-application.properties:
+📝 Configure application.properties:
 
 properties
-# Server Configuration
+# Server
 server.port=8080
 
-# Database Configuration
+# Database
 spring.datasource.url=jdbc:mysql://localhost:3306/quickmart_db
 spring.datasource.username=root
 spring.datasource.password=yourpassword
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-# JPA Configuration
+# JPA
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
-# CORS Configuration
+# CORS
 spring.web.cors.allowed-origins=http://localhost:4200
 spring.web.cors.allowed-methods=GET,POST,PUT,DELETE,PATCH,OPTIONS
 bash
-# Build and run backend
+# Build and run
 mvn clean install
 mvn spring-boot:run
-🚀 Backend runs at: http://localhost:8080
+✅ Backend: http://localhost:8080
 
 🎨 Step 3: Frontend Setup
 bash
-# Navigate to frontend directory
+# Navigate to frontend
 cd ../frontend
 
 # Install dependencies
 npm install
 
-# Run Angular application
+# Run application
 ng serve -o
-🚀 Frontend runs at: http://localhost:4200
+✅ Frontend: http://localhost:4200
+```
 
-🔗 API Endpoints
-Authentication Endpoints
-Method	Endpoint	Description	Access
-POST	/api/auth/register	User registration	Public
-POST	/api/auth/login	User login	Public
-GET	/api/auth/all	Get all users	Admin
-DELETE	/api/auth/{id}	Delete user	Admin
-Product Endpoints
-Method	Endpoint	Description	Access
-GET	/api/user/items	Get all products	Public
-GET	/api/user/items/{id}	Get product by ID	Public
-POST	/api/admin/products/add	Add product	Admin
-PUT	/api/admin/products/{id}	Update product	Admin
-DELETE	/api/admin/products/{id}	Delete product	Admin
-Order (Sale) Endpoints
-Method	Endpoint	Description	Access
-GET	/api/sales	Get all orders	Admin
-GET	/api/sales/buyer/{buyer}	Get user orders	User
-POST	/api/sales	Create order	User
-PATCH	/api/sales/admin/status/{id}	Update order status	Admin
-PATCH	/api/sales/admin/shipping/{id}	Add shipping details	Admin
-Announcement Endpoints
-Method	Endpoint	Description	Access
-GET	/api/announcements	Get all announcements	Public
-POST	/api/admin/announcements	Create announcement	Admin
-DELETE	/api/admin/announcements/{id}	Delete announcement	Admin
-Feedback Endpoints
-Method	Endpoint	Description	Access
-GET	/api/feedback	Get all feedback	Admin
-POST	/api/feedback	Submit feedback	User
-DELETE	/api/admin/feedback/{id}	Delete feedback	Admin
-🎯 User Workflow
-👤 Customer Journey
-Step	Action
-1	Register/Login to account
-2	Browse products (search, filter, sort)
-3	View product details
-4	Add products to cart
-5	Add products to wishlist (optional)
-6	Proceed to checkout
-7	Enter shipping address
-8	Select payment method (COD/UPI/Card)
-9	Place order
-10	Track order status in "My Orders"
-11	Receive real-time updates
-12	Submit feedback after delivery
-👑 Admin Journey
-Step	Action
-1	Login with admin credentials
-2	View dashboard analytics
-3	Add/Edit/Delete products
-4	Manage incoming orders
-5	Confirm pending orders
-6	Add courier & tracking details
-7	Mark orders as shipped
-8	Mark orders as delivered
-9	Publish announcements
-10	Review customer feedback
-🧪 Testing Credentials
-👑 Administrator Access
-Field	Value
-📧 Email	admin@quickmart.com
-🔑 Password	admin123
-👤 Customer Access
-Field	Value
-📧 Email	customer@quickmart.com
-🔑 Password	customer123
-💳 Test Payment Details
-Payment Method	Test Credentials
-UPI	test@okhdfcbank
-Card Number	4111 1111 1111 1111
-Expiry	12/25
-CVV	123
-📁 Project Structure
-text
+## 🔗 API Endpoints
+
+### 🔐 Authentication
+
+| Method | Endpoint             | Description       | Access |
+| ------ | -------------------- | ----------------- | ------ |
+| POST   | `/api/auth/register` | User Registration | Public |
+| POST   | `/api/auth/login`    | User Login        | Public |
+| GET    | `/api/auth/all`      | Get All Users     | Admin  |
+| DELETE | `/api/auth/{id}`     | Delete User       | Admin  |
+
+---
+
+### 📦 Products
+
+| Method | Endpoint                   | Description       | Access |
+| ------ | -------------------------- | ----------------- | ------ |
+| GET    | `/api/user/items`          | Get All Products  | Public |
+| GET    | `/api/user/items/{id}`     | Get Product By ID | Public |
+| POST   | `/api/admin/products/add`  | Add Product       | Admin  |
+| PUT    | `/api/admin/products/{id}` | Update Product    | Admin  |
+| DELETE | `/api/admin/products/{id}` | Delete Product    | Admin  |
+
+---
+
+### 📋 Orders
+
+| Method | Endpoint                         | Description          | Access |
+| ------ | -------------------------------- | -------------------- | ------ |
+| GET    | `/api/sales`                     | Get All Orders       | Admin  |
+| GET    | `/api/sales/buyer/{buyer}`       | Get User Orders      | User   |
+| POST   | `/api/sales`                     | Create Order         | User   |
+| PATCH  | `/api/sales/admin/status/{id}`   | Update Order Status  | Admin  |
+| PATCH  | `/api/sales/admin/shipping/{id}` | Add Shipping Details | Admin  |
+
+---
+
+### 📢 Announcements
+
+| Method | Endpoint                        | Description           | Access |
+| ------ | ------------------------------- | --------------------- | ------ |
+| GET    | `/api/announcements`            | Get All Announcements | Public |
+| POST   | `/api/admin/announcements`      | Create Announcement   | Admin  |
+| DELETE | `/api/admin/announcements/{id}` | Delete Announcement   | Admin  |
+
+---
+
+### 💬 Feedback
+
+| Method | Endpoint                   | Description      | Access |
+| ------ | -------------------------- | ---------------- | ------ |
+| GET    | `/api/feedback`            | Get All Feedback | Admin  |
+| POST   | `/api/feedback`            | Submit Feedback  | User   |
+| DELETE | `/api/admin/feedback/{id}` | Delete Feedback  | Admin  |
+
+---
+
+# 🎯 User Workflow
+
+## 👤 Customer Journey
+
+| Step | Action                                 |
+| ---- | -------------------------------------- |
+| 1    | Register / Login                       |
+| 2    | Browse Products (Search, Filter, Sort) |
+| 3    | View Product Details                   |
+| 4    | Add to Cart                            |
+| 5    | Add to Wishlist (Optional)             |
+| 6    | Proceed to Checkout                    |
+| 7    | Enter Shipping Address                 |
+| 8    | Select Payment Method                  |
+| 9    | Place Order                            |
+| 10   | Track Order Status                     |
+| 11   | Receive Updates                        |
+| 12   | Submit Feedback                        |
+
+---
+
+## 👑 Admin Journey
+
+| Step | Action                         |
+| ---- | ------------------------------ |
+| 1    | Login with Admin Credentials   |
+| 2    | View Dashboard Analytics       |
+| 3    | Manage Products (CRUD)         |
+| 4    | Process Incoming Orders        |
+| 5    | Confirm Pending Orders         |
+| 6    | Add Courier & Tracking Details |
+| 7    | Mark Orders as Shipped         |
+| 8    | Mark Orders as Delivered       |
+| 9    | Publish Announcements          |
+| 10   | Review Customer Feedback       |
+
+---
+
+# 🧪 Testing Credentials
+
+## 👑 Administrator
+
+| Field       | Value                                             |
+| ----------- | ------------------------------------------------- |
+| 📧 Email    | [admin@quickmart.com](mailto:admin@quickmart.com) |
+| 🔑 Password | admin123                                          |
+
+---
+
+## 👤 Customer
+
+| Field       | Value                                                   |
+| ----------- | ------------------------------------------------------- |
+| 📧 Email    | [customer@quickmart.com](mailto:customer@quickmart.com) |
+| 🔑 Password | customer123                                             |
+
+---
+
+## 💳 Test Payment
+
+| Method      | Credentials         |
+| ----------- | ------------------- |
+| UPI         | test@okhdfcbank     |
+| Card Number | 4111 1111 1111 1111 |
+| Expiry      | 12/25               |
+| CVV         | 123                 |
+
+---
+
+# 📁 Project Structure
+
+```text
 quickmart/
 │
-├── frontend/                         # Angular Application
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/           # Reusable components
-│   │   │   │   └── navbar/           # Navigation component
-│   │   │   ├── models/               # Data interfaces
-│   │   │   ├── pages/
-│   │   │   │   ├── admin/            # Admin modules
-│   │   │   │   │   ├── add-product/
-│   │   │   │   │   ├── admin-home/
-│   │   │   │   │   ├── announcement/
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   └── sales/
-│   │   │   │   ├── user/             # User modules
-│   │   │   │   │   ├── my-cart/
-│   │   │   │   │   ├── my-orders/
-│   │   │   │   │   ├── my-profile/
-│   │   │   │   │   ├── payment/
-│   │   │   │   │   ├── user-feedback/
-│   │   │   │   │   └── user-item/
-│   │   │   │   ├── about/
-│   │   │   │   ├── contact-us/
-│   │   │   │   ├── home/
-│   │   │   │   ├── login/
-│   │   │   │   └── signup/
-│   │   │   └── services/             # API services
-│   │   ├── assets/                   # Static assets
-│   │   └── environments/             # Environment configs
-│   ├── angular.json
+├── frontend/                         # Angular App
+│   ├── src/app/
+│   │   ├── components/               # Reusable Components
+│   │   ├── models/                   # Data Interfaces
+│   │   ├── pages/
+│   │   │   ├── admin/                # Admin Modules
+│   │   │   └── user/                 # User Modules
+│   │   └── services/                 # API Services
 │   └── package.json
 │
 ├── backend/                          # Spring Boot Application
 │   ├── src/main/java/
 │   │   └── com/marketplace/E_commerce/
-│   │       ├── config/               # Configuration classes
 │   │       ├── controllers/          # REST Controllers
-│   │       ├── models/               # Entity classes
-│   │       ├── repositories/         # JPA Repositories
-│   │       └── services/             # Business logic
-│   └── src/main/resources/
-│       └── application.properties
+│   │       ├── models/               # Entity Classes
+│   │       ├── repositories/         # Database Operations
+│   │       └── services/             # Business Logic
+│   └── pom.xml
 │
-└── database/                         # Database scripts
+└── database/
     └── schema.sql
-🐛 Troubleshooting Guide
-Problem	Solution
-CORS Error	Add @CrossOrigin(origins = "http://localhost:4200") to controllers
-Database Connection Failed	Verify MySQL service is running and credentials are correct
-Images Not Loading	Ensure images are in uploads/ directory and path is correct
-Login Authentication Failed	Clear browser localStorage and try again
-Port Already in Use	Change port in application.properties or kill process using port
-npm install errors	Delete node_modules and run npm cache clean --force then npm install
-401 Unauthorized	Check if user exists in database or register first
-404 Not Found	Verify API endpoint URL is correct
-500 Internal Server Error	Check backend logs for detailed error message
-Debug Commands
-bash
-# Check if backend is running
+```
+
+---
+
+# 🐛 Troubleshooting Guide
+
+| Problem                       | Solution                                              |
+| ----------------------------- | ----------------------------------------------------- |
+| 🌐 CORS Error                 | Add `@CrossOrigin(origins = "http://localhost:4200")` |
+| 🔌 Database Connection Failed | Verify MySQL Service Is Running                       |
+| 🖼️ Images Not Loading        | Check `uploads/` Directory                            |
+| 🔐 Login Failed               | Clear Browser Local Storage                           |
+| 🔌 Port Already In Use        | Change `server.port`                                  |
+| 📦 npm Installation Errors    | Delete `node_modules` and Reinstall                   |
+
+---
+
+# 🛠️ Debug Commands
+
+```bash
+# Check Backend Health
 curl http://localhost:8080/actuator/health
 
-# Check database connection
+# Check Database
 mysql -u root -p -e "SELECT 1"
 
-# Check port availability
-netstat -an | findstr :8080    # Windows
-lsof -i :8080                   # Mac/Linux
+# Check Port (Windows)
+netstat -an | findstr :8080
 
-# Clear Angular cache
+# Check Port (Linux/Mac)
+lsof -i :8080
+
+# Clear Angular Cache
 rm -rf node_modules/.cache
 npm cache clean --force
+```
 
-# Rebuild backend
-mvn clean compile
-🗓️ Future Roadmap
-Icon	Feature	Status
-📧	Email notifications for order updates	🔜 Planned
-📱	SMS alerts for delivery status	🔜 Planned
-🌐	Multi-language support	🔜 Planned
-📸	Product reviews with images	🔜 Planned
-🏷️	Discount coupons & promotional offers	🔜 Planned
-📄	Invoice PDF generation	🔜 Planned
-🔗	Social media login integration	🔜 Planned
-🤖	AI-powered product recommendations	🔜 Planned
-💬	Real-time chat support	🔜 Planned
-📊	Advanced analytics dashboard	🔜 Planned
-🔔	Push notifications	🔜 Planned
-📱	Mobile app (Flutter)	🔜 Planned
-🤝 Contributing
-We welcome contributions! Please follow these steps:
+---
 
-Step	Action
-1	Fork the repository
-2	Create a feature branch (git checkout -b feature/AmazingFeature)
-3	Commit changes (git commit -m 'Add AmazingFeature')
-4	Push to branch (git push origin feature/AmazingFeature)
-5	Open a Pull Request
-📋 Coding Standards
-✅ Follow Angular style guide
+# 🗓️ Future Roadmap
 
-✅ Write meaningful commit messages
+| Feature                   | Status     |
+| ------------------------- | ---------- |
+| 📧 Email Notifications    | 🔜 Planned |
+| 📱 SMS Alerts             | 🔜 Planned |
+| 🌐 Multi-language Support | 🔜 Planned |
+| 📸 Review Images          | 🔜 Planned |
+| 🏷️ Discount Coupons      | 🔜 Planned |
+| 📄 PDF Invoices           | 🔜 Planned |
+| 🔗 Social Login           | 🔜 Planned |
+| 🤖 AI Recommendations     | 🔜 Planned |
+| 💬 Live Chat Support      | 🔜 Planned |
 
-✅ Add comments for complex logic
+---
 
-✅ Test before submitting
+# 🤝 Contributing Guidelines
 
-✅ Ensure all tests pass
+| Step | Action                  |
+| ---- | ----------------------- |
+| 1    | Fork the Repository     |
+| 2    | Create a Feature Branch |
+| 3    | Commit Your Changes     |
+| 4    | Push Changes to GitHub  |
+| 5    | Open a Pull Request     |
 
-✅ Update documentation if needed
+---
 
-📄 License
-text
+# 📋 Coding Standards
+
+* ✅ Follow Angular Style Guide
+* ✅ Write Meaningful Commit Messages
+* ✅ Add Comments for Complex Logic
+* ✅ Test Before Submitting
+* ✅ Update Documentation
+
+---
+
+# 📄 License
+
+```text
 MIT License
 
-Copyright (c) 2024 QuickMart
+Copyright (c) 2026 QuickMart
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software and associated documentation files...
+```
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+---
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-🙏 Acknowledgments
-Icon	Contributor
-🅰️	Angular Team for amazing frontend framework
-☕	Spring Boot Team for robust backend solution
-🐬	MySQL for reliable database
-🎨	Angular Material for beautiful UI components
-👥	All Contributors who helped improve QuickMart
-⭐ Show Your Support
-Action	Icon
-Star this repository	⭐
-Fork this repository	🍴
-Share with others	📢
-Report issues	🐛
-Suggest features	💡
-📞 Contact
-Role	Contact
-Project Maintainer	maintainer@quickmart.com
-Technical Support	support@quickmart.com
-Business Inquiries	business@quickmart.com
+# 🙏 Acknowledgments
+
+| Contributor                 |
+| --------------------------- |
+| 🅰️ Angular Team            |
+| ☕ Spring Boot Team          |
+| 🐬 MySQL Team               |
+| 🎨 Angular Material         |
+| 👥 Open Source Contributors |
+
+---
+
+# ⭐ Show Your Support
+
+| Action               | Icon |
+| -------------------- | ---- |
+| Star This Repository | ⭐    |
+| Fork This Repository | 🍴   |
+| Share With Others    | 📢   |
+| Report Issues        | 🐛   |
+| Suggest Features     | 💡   |
+
+
+---
+
 <div align="center">
-🎉 Final Note
-QuickMart - Making online shopping quick and easy!
 
-Built with ❤️ by the QuickMart Team
+# 🎉 Final Note
 
-© 2024 QuickMart. All Rights Reserved.
+### "QuickMart – Making Online Shopping Quick & Easy"
 
-⭐ Star this repository if you like this project! ⭐
+Built with ❤️ by **Pranav Sali**
 
-</div> ```
+© 2026 QuickMart. All Rights Reserved.
+
+⭐ **Star this repository if you like this project!** ⭐
+
+</div>
